@@ -1,0 +1,11 @@
+{
+  "name": "async-object-creation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "helloworld.js",
+  "scripts": {
+    "start": "tsc && node ./dist/main.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
