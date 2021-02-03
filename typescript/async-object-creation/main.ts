@@ -1,6 +1,7 @@
 /**
+ * Asynchronous object creation tool
  * The base AsyncObject can be extended to handle asynchronous creation
- * without repeating code and while preserving completion
+ * without repeating code and while preserving code completion for the constructor
  */
 
 class Utilities {
