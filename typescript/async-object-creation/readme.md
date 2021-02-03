@@ -1,7 +1,7 @@
 # async-object-creation
 A utility to instantiate objects that need to wait for asynchronous operations in their construction.
 
-## Target
+## Target Functionality
 I wrote this piece of code for an app that was heavily dependent on external libraries which made extensive use of asynchronous operations, so I often found myself in need of creating objects asynchronously. I'm aware (and a fan) of the [object readiness pattern](https://pdconsec.net/blogs/devnull/asynchronous-constructor-design-pattern), but I had a few issues with it for my specific application (mostly, laziness):
 
 - I wanted to have a single instruction when creating the object

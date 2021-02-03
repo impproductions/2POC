@@ -1,18 +1,18 @@
 # 2POC
 Recovering two old pieces of code.
 
-## Typescript
-A utility for asynchronous object creation
+## 1. Typescript
+A utility for asynchronous object creation.
 
-Target:
+Target Functionality:
 ```typescript
 let fooPromise: Promise<Foo> = Foo.createAsync(/*constructor params*/);
 ```
 
 Link: https://github.com/impproductions/2POC/tree/master/typescript/async-object-creation
 
-## Unity (C#)
-Connecting dots to create a fence.
+## 2. Unity (C#)
+Components to connect dots to create a fence.
 
 ![circlepath](./unity/circlepath.png)
 
