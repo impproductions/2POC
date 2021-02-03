@@ -9,16 +9,16 @@ Target:
 let fooPromise: Promise<Foo> = Foo.createAsync(/*constructor params*/);
 ```
 
-Link: https://github.com/impproductions/portfolio/tree/master/typescript/async-object-creation
+Link: https://github.com/impproductions/2POC/tree/master/typescript/async-object-creation
 
 ## Unity (C#)
 Connecting dots to create a fence.
 
-*placeholder for image*
+![circlepath](./unity/circlepath.png)
 
-Link: https://github.com/impproductions/portfolio/tree/master/unity/dots-to-circles
+Link: https://github.com/impproductions/2POC/tree/master/unity
 
-Relevant scripts: https://github.com/impproductions/portfolio/tree/master/unity/dots-to-circles/Assets/Scripts
+Relevant scripts: https://github.com/impproductions/2POC/tree/master/unity/dots-to-circles/Assets/Scripts
 
 ## License
 Whatever :D

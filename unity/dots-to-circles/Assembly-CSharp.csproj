@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\CircleComponent.cs" />
-    <Compile Include="Assets\Scripts\Dot.cs" />
     <Compile Include="Assets\Scripts\DotComponent.cs" />
     <Compile Include="Assets\Scripts\Tools.cs" />
     <Reference Include="UnityEngine">
