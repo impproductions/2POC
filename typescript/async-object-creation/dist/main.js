@@ -45,7 +45,7 @@ class AsyncObject {
             // create object instance
             let instance = new this(...args);
             // call asyncConstructor on instance and wrap it in a promise
-            let promise = instance.asyncConstructor(args).then((result) => {
+            let promise = instance.asyncConstruction(args).then((result) => {
                 // store constructor output in new instance
                 instance.constructorOutput = result;
                 console.log("constructor output: " + result);
@@ -71,8 +71,8 @@ class TestAsyncChild extends AsyncObject {
         // initialize properties in constructor
         this.classProperty = param;
     }
-    // build asynchronous constructor
-    asyncConstructor() {
+    // implement asynchronous constructor
+    asyncConstruction() {
         return __awaiter(this, void 0, void 0, function* () {
             // simulate fetching data with a delay
             let fetchResult = Utilities.fetchWithDelay(2000).then((result) => {

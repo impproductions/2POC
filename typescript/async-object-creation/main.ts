@@ -40,8 +40,11 @@ abstract class AsyncObject {
     }
 
     // override and construct object here
-    // this returns a promise with a generic result defined in the child class, NOT the instance
-    abstract asyncConstructor(...args: any[]): Promise<any>
+    /**
+     * Implement asynchronous construction operations here. The class properties should be initialized in the regular constructor
+     * Returns a generic promise that can be used as a flag for completion, NOT the object instance
+     */
+    abstract asyncConstruction(...args: any[]): Promise<any>
 
     // instantiate the object and return it in a promise
     static async createAsync<P extends any[], T extends AsyncObject>(this: new (...args: P) => T, ...args: P) {
@@ -52,7 +55,7 @@ abstract class AsyncObject {
         let instance = new this(...args);
 
         // call asyncConstructor on instance and wrap it in a promise
-        let promise = instance.asyncConstructor(args).then((result) => {
+        let promise = instance.asyncConstruction(args).then((result) => {
             // store constructor output in new instance
             instance.constructorOutput = result;
             console.log("constructor output: " + result);
@@ -83,8 +86,8 @@ class TestAsyncChild extends AsyncObject {
         this.classProperty = param;
     }
 
-    // build asynchronous constructor
-    public async asyncConstructor(): Promise<any> {
+    // implement asynchronous constructor
+    public async asyncConstruction(): Promise<any> {
         // simulate fetching data with a delay
         let fetchResult = Utilities.fetchWithDelay(2000).then((result) => {
             this.fetchedProperty = result;

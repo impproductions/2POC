@@ -1,0 +1,31 @@
+# async-object-creation
+A utility to instantiate objects that need to wait for asynchronous operations in their construction.
+
+## Target
+I wrote this piece of code for an app that was heavily dependent on external libraries which made extensive use of asynchronous operations, so I often found myself in need of creating objects asynchronously. I'm aware (and a fan) of the [object readiness pattern](https://pdconsec.net/blogs/devnull/asynchronous-constructor-design-pattern), but I had a few issues with it for my specific application (mostly, laziness):
+
+- I wanted to have a single instruction when creating the object
+- I wanted to be able to call it from the object
+- I wanted to have a base class handling the asynchronous creation and inherit from that
+- I wanted the child class to be as agnostic as possible in regards to its parent, allowing the client to safely extend it without having to add anything to the child constructor and only overriding abstract properties
+- I wanted to preserve parameter names and typing (and autocomplete) for whatever function/method I was going to use for instantiation
+- I wanted to rewrite the least possible amount of code when creating new classes
+
+None of which is possible using the readiness pattern, or a factory function/object, which would have a different syntax from the one I was looking for.
+
+i.e.
+```typescript
+let fooPromise: Promise<Foo> = Foo.createAsync(/*constructor params*/);
+```
+
+## Implementation
+Direct link: https://github.com/impproductions/portfolio/blob/master/typescript/async-object-creation/main.ts
+
+Playground: [click me](https://www.typescriptlang.org/play?#code/PQKhCgAIUhBBnAngOwMYAsBOB7Z2Cu8k2ARgFYCmqALpKphQIbUCWuk122ANlDACroKkEo3jCEKVAHlyVWqkbIRwigA9qFZABMK2jtkjol27sLFSsuAkXpNWuPpADuLaugK0GAB3stkAOZ02LqQJi7oLGaQ3gzimABu-kGoIcKpALbeZg7KAGbYmBxCwcjw1Jj4NIV8wODgqNxiRACqrNxuLBREAN5QkAOgEAMjMADqjG5EBUUA2rpNiAC6YTqQcTwJ3TE4GSziLm7oYZDIFM6QCYzc+BT9o5AAAt6MmIwZkAuMiJD3AyB1EaQcrMFioMJINCQPIUagYMZHAAiFEWAAovogAFynfAZEgUTAASmxAAVdvsKAAecqYZIAPkgfSBQOAwEghGEnGBLAy+Camk+KO+kH80NhGGSn2YjHqzJGOUu11ukAAvJAAOQwuFCbTqgDcsrlkFZ61h+EwyjJ2D24gAdAxKDRUWcLgBRTA4TCogBEimQ6oUDGYnJ5BO9hMJBr+QIY1HNyhdkCtNqpNPpqNRG24W0JqoZTKNQNSZR4FFt3GwAR9IMwmn0WolgSl1EYYVo3sgAGpTudIIjg6jCbbOAAZbCKMwAZQqyUHkejRvE1H4oc8GdzKvzC8LA2L8FL5crPry-n2OrF2sl2mlbcgHe7if7mkHw+wY4nFGntMCc4NO6NWZbKiVw3BQ87-gMAC+AA0gqLOBRqQfOfyQeAqHgIwJA0owNB0E08BEJIaCyI6tAFoMbLqJoaxcgEkzKBYaBWHghB0EGuR0IwLwkFEbiIH8JruOkkTcPojTNCKti4DSVR1iKyhCRCUgAMLSRUsmFJAGSwh4+iGhR7LiPoXLlIUnIlHEfK0NgeTFMJUS6kQjGoKpZTqdURSxNaFKQKiSjEN4uTXOy7R8cQ+DUN4EWEn8XmaDQeilDJHnSBFUXUNiSiIFGLJskuMSvO8sIEkQooSqJSXuZwmB-HuVWFIOjLbsabKnqw1wsAAXsIXm+LWXSlco5ViWplQeSh+ktcQWweiwoThHVY3WXIuFCAwAlgNGMAAJJZGY2nILQznMTYlVLWwyjYH1oLSUYBJlpAgjpPhRC9QSrDbPAHh8vo+LyZ0HXdfooqKQwAR8q8Z0aTVzIwAASmaFpOZAARaASYI7N5BzuMwnHKH9HL6GIJx5E0QQzMEe2whdsEAHLSPwdnECttD+CCaB3LDgIjJh2G4c5rnJbkqK2qLrwBPAmXIIgsxLMSSbkuIlJZXSk0mmzLaHSwwZM6QpGrPosbxiKrMMZjKZ-CCrDgs5bH2BQRGoJSJKQFRWjaE50uy7BjNuzohGQjILN0qi7j7NiiYi2LmAS6SG4MvwsGi7a4uS0mubkcyJoctiszKSJ2hLLadjBo7fkx-AMWFoJJTi7iWjUE5DBM-ARUQsU2AHF5SS6MDCklMNUPjc1JolwKevyPJ7OoJzRoKhrSgz6qPYXGH8BRynFfIdXbITtwSloIL9VFOwC8cwbLhvN4JvyScXkW4WCr3z5apnzPKeB0f524OXEtDkJyAMyWW4NQeOTUIJTVMs3Ra0NwqRQirfRMb9Z7-mQcXUa0NUrwNoGqYB1A-wQT3AeCsVZfQYI8nA9K2J7ymngFZbeEEjYWinprGeBC5RIWLswDAGYCREjzOAwh0kDx8Ianw202kCKMFRghf87gcAXETO6T0PpbYwIoXkSYZhtDhnYcyJCOUjQmiYf3HqitErIOaiY82FI9GoXQoJbo1AGgvUek4x2+cHKuw0O7AOUgSKT0zlFEgHRwTiQIlaPq1Afhqm9IUFgAR-DXG9Ho4JoSLwYD0JE96MS7y6E0VZFJU0TI8ghgKVsGJb4NkiE2a8LZbzqNyGrNkYgADW0JNIvDeNpTQmAiC1XIdVVEXT3jYjTIEDOzU6F9UHHooswizCHirOqfJjArJ4Qkm9WsPwQK3GxOqLsxR9jFxetk7ZsjmREMWSQ1EKyKAFJARk88WzomKlAiwxeFB9mHLXraapWScBRMQAwuU6tkAAw6N1TGUSBq30aTUQsvzwnwDOa8tUIyMh2OaSKKmB0jqBxOqxeFMMRhpIxrbAWgyLqDlJOY5W0stw725LyfkwhqlXhvK4dwJwMTNQVNUhGdDHlqjaLxD68A-ninQAidwyI0QACYAAMyr-5CEAZmbo9CBGZ0RZECV-ztCotyXgwx-4TRXSCtwbgPxrGtjoagGeBFoRkw6UURSjSLq+U0llMOTYUTiCrowxGyhvT2sdfAFJzVOGKG1Lwj0YCdVGiuWWURXpxGSNbjIuZRp5HYEUb2ZRDUyF8h0AGJ5tDCkXKBAYyaMZg1PMFVZLFDjd7sWEBPfmawMhKBYFFVlN9cBLzPu1Di+xPi4DuCaPAAoca0AxcVPplNsjU1PkQbt-gWz+EShTd1BcNlOpBgPNtjstI6RCOABUzkAm4TVPwdxn8C7F2PYHH0GQQgsBPHoXRGFA7XuoMONVQDNUgITQMks1yjzemQfu16gKclvL2XeQ5eCTnNCNRc5NSyfTQYNdC+DuyvlIe7Chg16GDTRu4egON-DNyCN3AslNHoxEegkd0TNYE9G5vzW6JjXpi2iX9KbCFXV20s2-TWoAA)
+
+Please note that:
+- Since the client is extending the base AsyncObject class, everything is handled under the hood
+- The asyncConstruction method is abstract, which requires the client to implement it to compile
+- The arguments for the creatAsync() method are the same as the child class constructor
+
+Hence the client can inherit from the base class with almost no knowledge and additional work required.
