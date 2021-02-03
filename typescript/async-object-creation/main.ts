@@ -29,9 +29,9 @@ class Utilities {
 
 abstract class AsyncObject {
     // extend to gain asynchronous creation capability
-    // the child class is constructed in the asyncConstructor method 
+    // the child class is constructed in the asyncConstruction method 
 
-    // used to store the result of the child's asyncConstructor promise (an optional utility output)
+    // used to store the result of the child's asyncConstruction promise (an optional utility output)
     protected constructorOutput: any;
 
     // set parameters in child constructor
@@ -54,7 +54,7 @@ abstract class AsyncObject {
         // create object instance
         let instance = new this(...args);
 
-        // call asyncConstructor on instance and wrap it in a promise
+        // call asyncConstruction on instance and wrap it in a promise
         let promise = instance.asyncConstruction(args).then((result) => {
             // store constructor output in new instance
             instance.constructorOutput = result;

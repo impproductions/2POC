@@ -44,7 +44,7 @@ class AsyncObject {
             // the arguments are the same as those provided in the child constructor
             // create object instance
             let instance = new this(...args);
-            // call asyncConstructor on instance and wrap it in a promise
+            // call asyncConstruction on instance and wrap it in a promise
             let promise = instance.asyncConstruction(args).then((result) => {
                 // store constructor output in new instance
                 instance.constructorOutput = result;
