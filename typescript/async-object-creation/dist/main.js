@@ -1,6 +1,7 @@
 /**
+ * Asynchronous object creation tool
  * The base AsyncObject can be extended to handle asynchronous creation
- * without repeating code and while preserving completion
+ * without repeating code and while preserving code completion for the constructor
  */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -20,9 +21,11 @@ class Utilities {
         return __awaiter(this, void 0, void 0, function* () {
             // use to simulate delay in fetching data
             let value = 'fetched';
-            return Promise.reject(new Error("can't create timer"));
+            // return Promise.reject(new Error("can't create timer"));
             return new Promise((resolve) => {
+                console.log("started fetching data at " + new Date().toLocaleString());
                 setTimeout(() => {
+                    console.log("finished fetching data at " + new Date().toLocaleString());
                     resolve(value);
                 }, delay);
             });
@@ -88,8 +91,8 @@ class TestAsyncChild extends AsyncObject {
 // note that parameters completion is maintained for the child class in the createAsync method
 let asyncObject = TestAsyncChild.createAsync("modified");
 asyncObject.then((result) => {
-    console.log("class property value: " + result.classProperty);
-    console.log("fetched property value: " + result.fetchedProperty);
+    console.log("instance class property value: " + result.classProperty);
+    console.log("instance fetched property value: " + result.fetchedProperty);
 }).catch((err) => {
     console.error(err.message);
     throw new Error("couldn't initialize object");

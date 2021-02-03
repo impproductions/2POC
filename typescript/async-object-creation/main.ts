@@ -17,7 +17,9 @@ class Utilities {
         // return Promise.reject(new Error("can't create timer"));
 
         return new Promise<string>((resolve) => {
+            console.log("started fetching data at " + new Date().toLocaleString());
             setTimeout(() => {
+                console.log("finished fetching data at " + new Date().toLocaleString());
                 resolve(value);
             }, delay);
         });
@@ -102,8 +104,8 @@ class TestAsyncChild extends AsyncObject {
 // note that parameters completion is maintained for the child class in the createAsync method
 let asyncObject = TestAsyncChild.createAsync("modified");
 asyncObject.then((result) => {
-    console.log("class property value: " + result.classProperty);
-    console.log("fetched property value: " + result.fetchedProperty);
+    console.log("instance class property value: " + result.classProperty);
+    console.log("instance fetched property value: " + result.fetchedProperty);
 }).catch((err) => {
     console.error(err.message);
     throw new Error("couldn't initialize object");
