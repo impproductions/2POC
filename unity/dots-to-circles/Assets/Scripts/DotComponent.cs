@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using DTC.Tools;
 
 namespace DTC {
     public class Dot
@@ -24,29 +25,25 @@ namespace DTC {
             get { return this.dot.angle; }
             set { this.dot.angle = value; }
         }
-        public float distanceFromCenter
+        public float distanceFromCentroid
         {
             get { return this.dot.distanceFromCenter; }
             set { this.dot.distanceFromCenter = value; }
         }
-        public Vector3 position
+        public Vector3 projectedPosition
         {
-            get { return this.gameObject.transform.position; }
+            get { return Vector3.ProjectOnPlane(this.gameObject.transform.position, Vector3.up); }
         }
 
-        public int listIndex;
-
-        // Use this for initialization
         void Start()
         {
             this.dot = new Dot(0, 0);
-            this.listIndex = 0;
         }
 
         void OnDrawGizmos()
         {
             if (Application.isPlaying)
-                Handles.Label(this.position + Vector3.up, this.listIndex.ToString() + '-' + this.angle.ToString());
+                Handles.Label(this.projectedPosition + Vector3.up, this.angle.ToString() + "deg");
         }
     }
 }
