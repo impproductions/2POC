@@ -1,5 +1,6 @@
 # dots-to-circles
 Create a path that resembles a circle passing through n dots.
+Unity version: Unity 2019.4.19f1 (64-bit) (recommended)
 
 ## Target
 I was asked to provide a system for the player to place different objects in the scene, then connect them to create a cicular(ish) mesh to use as an emitter for a generic particle system.

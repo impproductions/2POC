@@ -20,5 +20,7 @@ Link: https://github.com/impproductions/2POC/tree/master/unity
 
 Relevant scripts: https://github.com/impproductions/2POC/tree/master/unity/dots-to-circles/Assets/Scripts
 
+Unity version: Unity 2019.4.19f1 (64-bit) (recommended)
+
 ## License
 Whatever :D
