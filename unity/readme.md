@@ -8,6 +8,8 @@ I was asked to provide a system for the player to place different objects in the
 ![circle example](./circlepath.png)
 
 ## Implementation
+Each point is a GameObject with a DotComponent attached, the shape is an empty GameObject with a CircleComponent attached. Both rely on a vector helper tool.
+
 - Project all points on the ground
 - Define a centroid (average)
 - Rotate around the centroid clockwise and draw the shape passing once through each point
